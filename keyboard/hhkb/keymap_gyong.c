@@ -84,7 +84,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
                 }
                 else if (isLAltPressed) {                       // if LAlt pressed
                     del_mods(MOD_BIT(KC_LALT));                 // remove left alt
-                    send_keyboard_report();                     // update key status
                     add_key(KC_GRV);                            // add grave_accent
                     send_keyboard_report();                     // update key status (grave_accent only)
                     add_mods(MOD_BIT(KC_LALT));                 // add left alt
@@ -95,24 +94,25 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
                 }
             }
             else {
-                if (isLShiftPressed || isRShiftPressed || isLCmdPressed || isLAltPressed) {
-                    del_key(KC_GRV);
-                    send_keyboard_report();
-                }
-                else {
-                    del_key(KC_ESC);
-                    send_keyboard_report();
-                }
+                del_key(KC_ESC);
+                del_key(KC_GRV);
+                send_keyboard_report();
+                //if (isLShiftPressed || isRShiftPressed || isLCmdPressed || isLAltPressed) {
+                //    del_key(KC_GRV);
+                //    send_keyboard_report();
+                //}
+                //else {
+                //    del_key(KC_ESC);
+                //    send_keyboard_report();
+                //}
             }
             break;
 
         case ARROW_H:
             alt = get_mods()&MODS_ALT_MASK;     // check press left alt
-
             if (record->event.pressed) {
                 if (alt) {                      // if press left alt
                     del_mods(MOD_BIT(KC_LALT)); // remove left alt
-                    send_keyboard_report();     // update key
                     add_key(KC_LEFT);           // add left arrow
                     send_keyboard_report();     // update key
                     add_mods(MOD_BIT(KC_LALT)); // add left alt
@@ -124,11 +124,15 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
             else {
                 if (alt) {
+                    del_mods(MOD_BIT(KC_LALT));
                     del_key(KC_LEFT);
+                    del_key(KC_H);
                     send_keyboard_report();
+                    add_mods(MOD_BIT(KC_LALT));
                 }
-                else {                          // if not press left alt
-                    del_key(KC_H);              // remove h
+                else {
+                    del_key(KC_LEFT);
+                    del_key(KC_H);
                     send_keyboard_report();
                 }
             }
@@ -140,7 +144,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed) {
                 if (alt) {
                     del_mods(MOD_BIT(KC_LALT));
-                    send_keyboard_report();
                     add_key(KC_DOWN);
                     send_keyboard_report();
                     add_mods(MOD_BIT(KC_LALT));
@@ -152,22 +155,26 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
             else {
                 if (alt) {
+                    del_mods(MOD_BIT(KC_LALT));
                     del_key(KC_DOWN);
+                    del_key(KC_J);
                     send_keyboard_report();
+                    add_mods(MOD_BIT(KC_LALT));
                 }
                 else {
+                    del_key(KC_DOWN);
                     del_key(KC_J);
                     send_keyboard_report();
                 }
             }
             break;
+
         case ARROW_K:
             alt = get_mods()&MODS_ALT_MASK;
 
             if (record->event.pressed) {
                 if (alt) {
                     del_mods(MOD_BIT(KC_LALT));
-                    send_keyboard_report();
                     add_key(KC_UP);
                     send_keyboard_report();
                     add_mods(MOD_BIT(KC_LALT));
@@ -179,10 +186,14 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
             else {
                 if (alt) {
+                    del_mods(MOD_BIT(KC_LALT));
                     del_key(KC_UP);
+                    del_key(KC_K);
                     send_keyboard_report();
+                    add_mods(MOD_BIT(KC_LALT));
                 }
                 else {
+                    del_key(KC_UP);
                     del_key(KC_K);
                     send_keyboard_report();
                 }
@@ -195,7 +206,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed) {
                 if (alt) {
                     del_mods(MOD_BIT(KC_LALT));
-                    send_keyboard_report();
                     add_key(KC_RIGHT);
                     send_keyboard_report();
                     add_mods(MOD_BIT(KC_LALT));
@@ -207,10 +217,14 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
             else {
                 if (alt) {
+                    del_mods(MOD_BIT(KC_LALT));
                     del_key(KC_RIGHT);
+                    del_key(KC_L);
                     send_keyboard_report();
+                    add_mods(MOD_BIT(KC_LALT));
                 }
                 else {
+                    del_key(KC_RIGHT);
                     del_key(KC_L);
                     send_keyboard_report();
                 }
@@ -218,6 +232,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
             break;
     }
 }
+
 /*
  * Fn action definition
  */
