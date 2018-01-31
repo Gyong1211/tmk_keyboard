@@ -1,0 +1,8 @@
+version: "3.3"
+services:
+  builder:
+    build: .
+    image: tmk-builder-gyong
+    volumes:
+    - ./keyboard/hhkb:/root/tmk_keyboard/keyboard/hhkb
+    container_name: tmk-builder

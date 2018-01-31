@@ -17,8 +17,9 @@ RUN         apt-get install -y vim
 RUN         apt-get autoremove
 RUN         apt-get clean
 
+# clone project
 WORKDIR     /root
 RUN         git clone https://github.com/tmk/tmk_keyboard.git
-WORKDIR     /root/tmk_keyboard
-RUN         git pull
-
+RUN         rm -rf /root/tmk_keyboard/keyboard/hhkb
+RUN         mkdir /root/tmk_keyboard/keyboard/hhkb
+WORKDIR     /root/tmk_keyboard/keyboard/hhkb
