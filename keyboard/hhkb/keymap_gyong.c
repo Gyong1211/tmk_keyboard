@@ -115,6 +115,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed) {
                 if (isMagicModPressed) {
                     del_mods(MAGIC_MOD);
+                    send_keyboard_report();
                     add_key(KC_LEFT);
                     send_keyboard_report();
                     add_mods(MAGIC_MOD);
@@ -146,6 +147,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed) {
                 if (isMagicModPressed) {
                     del_mods(MAGIC_MOD);
+                    send_keyboard_report();
                     add_key(KC_DOWN);
                     send_keyboard_report();
                     add_mods(MAGIC_MOD);
@@ -177,6 +179,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed) {
                 if (isMagicModPressed) {
                     del_mods(MAGIC_MOD);
+                    send_keyboard_report();
                     add_key(KC_UP);
                     send_keyboard_report();
                     add_mods(MAGIC_MOD);
@@ -208,6 +211,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed) {
                 if (isMagicModPressed) {
                     del_mods(MAGIC_MOD);
+                    send_keyboard_report();
                     add_key(KC_RIGHT);
                     send_keyboard_report();
                     add_mods(MAGIC_MOD);
