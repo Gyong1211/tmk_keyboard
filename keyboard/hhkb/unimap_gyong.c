@@ -15,7 +15,8 @@ enum function_id {
     ARROW_L
 };
 
-#define AC_L1       ACTION_LAYER_MOMENTARY(1)
+#define AC_L1       ACTION_LAYER_TOGGLE(1)
+#define AC_L2       ACTION_LAYER_MOMENTARY(2)
 #define AC_MESC     ACTION_FUNCTION(ESCAPE)
 #define AC_ARWH     ACTION_FUNCTION(ARROW_H)
 #define AC_ARWJ     ACTION_FUNCTION(ARROW_J)
@@ -28,18 +29,28 @@ const action_t actionmaps[][UNIMAP_ROWS][UNIMAP_COLS] __attribute__ ((section ("
 const action_t actionmaps[][UNIMAP_ROWS][UNIMAP_COLS] PROGMEM = {
 #endif
     [0] = UNIMAP_HHKB(
-           MESC,1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS, DEL,  \
-           TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC,       \
-           LCTL,A,   S,   D,   F,   G,   ARWH,ARWJ,ARWK,ARWL, SCLN,QUOT,ENT,             \
-           LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,RSFT, L1,             \
-                LALT,LGUI,          SPC,                RGUI,RALT),
+            MESC,   1,   2,   3,   4,   5,   6,   7,   8,   9,   0,MINS, EQL,BSLS, DEL,    \
+             TAB,   Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,LBRC,RBRC,BSPC,         \
+            LCTL,   A,   S,   D,   F,   G,ARWH,ARWJ,ARWK,ARWL,SCLN,QUOT, ENT,              \
+            LSFT,   Z,   X,   C,   V,   B,   N,   M,COMM, DOT,SLSH,RSFT,  L2,            \
+                 LALT,LGUI,           SPC,               RGUI,RALT
+          ),
 
+    [1] = UNIMAP_HHKB(
+            TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
+            TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,      \
+            TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,           \
+            TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,           \
+                 LGUI,LALT,          TRNS,               RALT,RGUI
+          ),
 
-    [1] = UNIMAP_HHKB(PWR, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, TRNS,  \
-           CAPS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,PSCR,SLCK,PAUS, UP, TRNS, TRNS,      \
-           TRNS,VOLD,VOLU,MUTE,TRNS,TRNS,PAST,PSLS,HOME,PGUP,LEFT,RGHT,PENT,            \
-           TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,PPLS,PMNS,END, PGDN,DOWN,TRNS,TRNS,            \
-                TRNS,TRNS,          TRNS,               TRNS,TRNS),
+    [2] = UNIMAP_HHKB(
+             PWR,  F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9, F10, F11, F12, INS,TRNS,  \
+            CAPS,  L1,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,PSCR,SLCK,PAUS,  UP,TRNS,TRNS,      \
+            TRNS,VOLD,VOLU,MUTE,TRNS,TRNS,PAST,PSLS,HOME,PGUP,LEFT,RGHT,PENT,            \
+            TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,PPLS,PMNS, END,PGDN,DOWN,TRNS,TRNS,            \
+                 TRNS,TRNS,          TRNS,               TRNS,TRNS
+          ),
 };
 
 

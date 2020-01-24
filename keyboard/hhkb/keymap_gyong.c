@@ -18,13 +18,24 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *       |Alt|Gui  |          Space        |Gui  |Alt|
      *       `-------------------------------------------'
      */
-    KEYMAP(FN1, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS, DEL,  \
-           TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC,       \
-           LCTL,A,   S,   D,   F,   G,   FN2, FN3, FN4, FN5, SCLN,QUOT,ENT,             \
-           LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,RSFT,FN0,             \
-                LALT,LGUI,          SPC,                RGUI,RALT),
+    KEYMAP(
+             FN1,   1,   2,   3,   4,   5,   6,   7,   8,   9,   0,MINS, EQL,BSLS, DEL,  \
+             TAB,   Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,LBRC,RBRC,BSPC,       \
+            LCTL,   A,   S,   D,   F,   G, FN2, FN3, FN4, FN5,SCLN,QUOT, ENT,             \
+            LSFT,   Z,   X,   C,   V,   B,   N,   M,COMM, DOT,SLSH,RSFT, FN0,             \
+                 LALT,LGUI,           SPC,                RGUI,RALT
+    ),
 
-    /* Layer 1: HHKB mode (HHKB Fn)
+    /* Layer 1: GUI & ALT SWAP mode (For windows) */
+    KEYMAP(
+             FN1,   1,   2,   3,   4,   5,   6,   7,   8,   9,   0,MINS, EQL,BSLS, DEL,  \
+             TAB,   Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,LBRC,RBRC,BSPC,       \
+            LCTL,   A,   S,   D,   F,   G, FN2, FN3, FN4, FN5,SCLN,QUOT, ENT,             \
+            LSFT,   Z,   X,   C,   V,   B,   N,   M,COMM, DOT,SLSH,RSFT, FN0,             \
+                 LGUI,LALT,           SPC,               RALT,RGUI
+    ),
+
+    /* Layer 2: HHKB mode (HHKB Fn)
      * ,-----------------------------------------------------------.
      * |Pwr| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Ins|   |
      * |-----------------------------------------------------------|
@@ -37,11 +48,12 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *       |   |     |                       |     |   |
      *       `-------------------------------------------'
      */
-    KEYMAP(PWR, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, TRNS,  \
-           CAPS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,PSCR,SLCK,PAUS, UP, TRNS, TRNS,      \
-           TRNS,VOLD,VOLU,MUTE,TRNS,TRNS,PAST,PSLS,HOME,PGUP,LEFT,RGHT,PENT,            \
-           TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,PPLS,PMNS,END, PGDN,DOWN,TRNS,TRNS,            \
-                TRNS,TRNS,          TRNS,               TRNS,TRNS),
+    KEYMAP(
+             PWR, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, TRNS,  \
+            CAPS, FN6,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,PSCR,SLCK,PAUS, UP, TRNS, TRNS,      \
+            TRNS,VOLD,VOLU,MUTE,TRNS,TRNS,PAST,PSLS,HOME,PGUP,LEFT,RGHT,PENT,            \
+            TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,PPLS,PMNS,END, PGDN,DOWN,TRNS,TRNS,            \
+                 TRNS,TRNS,          TRNS,               TRNS,TRNS),
 };
 
 
@@ -244,10 +256,11 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
  * Fn action definition
  */
 const action_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_MOMENTARY(1),
+    [0] = ACTION_LAYER_MOMENTARY(2),
     [1] = ACTION_FUNCTION(ESCAPE),
     [2] = ACTION_FUNCTION(ARROW_H),
     [3] = ACTION_FUNCTION(ARROW_J),
     [4] = ACTION_FUNCTION(ARROW_K),
     [5] = ACTION_FUNCTION(ARROW_L),
+    [6] = ACTION_LAYER_TOGGLE(1),
 };
