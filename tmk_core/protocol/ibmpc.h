@@ -71,9 +71,12 @@ POSSIBILITY OF SUCH DAMAGE.
 #define IBMPC_SET_LED     0xED
 
 #define IBMPC_PROTOCOL_NO       0
-#define IBMPC_PROTOCOL_AT       1
-#define IBMPC_PROTOCOL_XT_IBM   2
-#define IBMPC_PROTOCOL_XT_CLONE 3
+#define IBMPC_PROTOCOL_AT       0x10
+#define IBMPC_PROTOCOL_AT_Z150  0x11
+#define IBMPC_PROTOCOL_XT       0x20
+#define IBMPC_PROTOCOL_XT_IBM   0x21
+#define IBMPC_PROTOCOL_XT_CLONE 0x22
+#define IBMPC_PROTOCOL_XT_ERROR 0x23
 
 // Error numbers
 #define IBMPC_ERR_NONE        0
@@ -82,13 +85,14 @@ POSSIBILITY OF SUCH DAMAGE.
 #define IBMPC_ERR_TIMEOUT     0x20
 #define IBMPC_ERR_FULL        0x40
 #define IBMPC_ERR_ILLEGAL     0x80
-#define IBMPC_ERR_FF          0xFF
+#define IBMPC_ERR_FF          0xF0
 
 #define IBMPC_LED_SCROLL_LOCK 0
 #define IBMPC_LED_NUM_LOCK    1
 #define IBMPC_LED_CAPS_LOCK   2
 
 
+extern volatile uint16_t ibmpc_isr_debug;
 extern volatile uint8_t ibmpc_protocol;
 extern volatile uint8_t ibmpc_error;
 
@@ -184,11 +188,17 @@ static inline void idle(void)
     data_hi();
 }
 
-/* inhibit device to send */
+/* inhibit device to send(AT), soft reset(XT) */
 static inline void inhibit(void)
 {
     clock_lo();
     data_hi();
 }
 
+/* inhibit device to send(XT) */
+static inline void inhibit_xt(void)
+{
+    clock_hi();
+    data_lo();
+}
 #endif
