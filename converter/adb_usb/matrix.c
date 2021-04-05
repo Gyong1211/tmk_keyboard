@@ -387,10 +387,12 @@ uint8_t matrix_scan(void)
         tick_ms = timer_read();
 
         codes = adb_host_kbd_recv(ADB_ADDR_KEYBOARD);
+        if (codes) xprintf("%04X ", codes);
 
         // Adjustable keybaord media keys
         if (codes == 0 && has_media_keys &&
                 (codes = adb_host_kbd_recv(ADB_ADDR_APPLIANCE))) {
+            xprintf("m:%04X ", codes);
             // key1
             switch (codes & 0x7f ) {
             case 0x00:  // Mic
@@ -433,10 +435,6 @@ uint8_t matrix_scan(void)
     }
     key0 = codes>>8;
     key1 = codes&0xFF;
-
-    if (debug_matrix && codes) {
-        print("adb_host_kbd_recv: "); phex16(codes); print("\n");
-    }
 
     if (codes == 0) {                           // no keys
         return 0;
@@ -481,15 +479,18 @@ uint8_t matrix_scan(void)
          *         -------------   ---------
          * Key     ANSI    ISO     ANSI    ISO
          * ---------------------------------------------
-         * *a      0x32    0x0A    0x35    0x35
-         * *b      ----    0x32    ----    0x64
-         * *c      0x2A    0x2A    0x31    0x31(or 0x32)
+         * *a      0x32    0x0A    GRAVE   GRAVE
+         * *b      ----    0x32    ----    NUBS
+         * *c      0x2A    0x70    BSLASH  NUHS
          */
         if (is_iso_layout) {
             if ((key0 & 0x7F) == 0x32) {
                 key0 = (key0 & 0x80) | 0x0A;
             } else if ((key0 & 0x7F) == 0x0A) {
                 key0 = (key0 & 0x80) | 0x32;
+            }
+            if ((key0 & 0x7F) == 0x2A) {
+                key0 = (key0 & 0x80) | 0x70;
             }
         }
         register_key(key0);
