@@ -20,6 +20,7 @@ RUN         apt-get clean
 # clone project
 WORKDIR     /root
 RUN         git clone https://github.com/tmk/tmk_keyboard.git
-RUN         rm -rf /root/tmk_keyboard/keyboard/hhkb
-RUN         mkdir /root/tmk_keyboard/keyboard/hhkb
+WORKDIR     /root/tmk_keyboard
+RUN         git submodule update --init
+RUN         rm -rf /root/tmk_keyboard/keyboard/hhkb/*
 WORKDIR     /root/tmk_keyboard/keyboard/hhkb
